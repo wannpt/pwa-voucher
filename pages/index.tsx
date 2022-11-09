@@ -1,61 +1,91 @@
-import styles from '../styles/Home.module.css'
+import { useState } from "react";
+import styles from "../styles/Home.module.css";
+
+type Vouchers = {
+  name?: string;
+  detail?: string;
+  status?: "AVAILABLE" | "UNAVAILABLE";
+};
+
+const VOUCHERS = [
+  {
+    name: "Test 1",
+    detail: "Detail",
+    status: "AVAILABLE",
+  },
+];
 
 export default function Home() {
+  const [vouchers, setVouchers] = useState<Vouchers[]>(VOUCHERS as Vouchers[]);
+
+  // const getVouchers = () => {
+  //   const initial = VOUCHERS
+  //   for(let [key, value] in Object.entries(localStorage)){
+  //     if(value === 'UNAVAILABLE'){
+
+  //     }
+  //   }
+  // }
+
+  const handleOnClick = (name?: string) => {
+    const selected = VOUCHERS.find((vouchers) => vouchers.name === name);
+    setVouchers((prev) => [
+      ...prev,
+      { name: selected?.name, detail: selected?.detail, status: "UNAVAILABLE" },
+    ]);
+    // localStorage.setItem(name, "UNAVAILABLE");
+  };
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
+        <h1 className={styles.title}>Vouchers!</h1>
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          {vouchers.map((v) => {
+            return (
+              <div
+                className={styles.card}
+                onClick={() => handleOnClick(v.name)}
+              >
+                <h3> {v.name} </h3>
+                <p> {v.detail} </p>
+                <p> {v.status} </p>
+              </div>
+            );
+          })}
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
+          <div className={styles.card}>
+            <h3> Name </h3>
+            <p> detail </p>
+          </div>
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <footer className={styles.footer}>for my babyboo</footer>
     </div>
-  )
+  );
 }
